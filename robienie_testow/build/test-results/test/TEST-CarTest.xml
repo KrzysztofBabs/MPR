@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="CarTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-10-25T14:41:08" hostname="KB1" time="0.021">
+  <properties/>
+  <testcase name="carHas0OrLessFuelWhenRefuelled()" classname="CarTest" time="0.021"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
