@@ -3,11 +3,13 @@ package com.example.zajecia2.services;
 import com.example.zajecia2.controllers.MyRestController;
 import com.example.zajecia2.model.Auto;
 import com.example.zajecia2.repository.AutoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -17,12 +19,20 @@ import static org.antlr.v4.runtime.tree.xpath.XPath.findAll;
 @Service
 public class AutoService{
     private AutoRepository repository;
+    private StringUtilsService stringUtilsService;
 
-    public AutoService(AutoRepository repository){
+
+    @Autowired
+    public AutoService(AutoRepository repository, StringUtilsService stringUtilsService) {
         this.repository = repository;
+        this.stringUtilsService = stringUtilsService;
+
+
         repository.save(new Auto("Dacia", 2022));
         repository.save(new Auto("Audi", 2023));
         repository.save(new Auto("Toyota", 2024));
+
+
     }
 
     public Optional<Auto> getById(Long id){
@@ -48,9 +58,28 @@ public class AutoService{
     }
 
     public void add(Auto auto){
+        auto.setIdentyfikator();//potrzebne do testu ID
         this.repository.save(new Auto(auto.getModel(), auto.getRokProdukcji()));
 
     }
+
+    //zajecia5
+    public void addupper(Auto auto){
+        this.repository.save(new Auto(stringUtilsService.upper(auto.getModel()), auto.getRokProdukcji()));
+    }
+    public void addlower(Auto auto){
+        this.repository.save(new Auto(stringUtilsService.lower(auto.getModel()), auto.getRokProdukcji()));
+    }
+
+    public List<Auto> getFirstLetterBiggerRestLower(){
+
+        List<Auto> all = this.repository.findAll();
+        for(Auto auto : all){
+            auto.setModel(stringUtilsService.firstBigger(auto.getModel()));
+        }
+        return all;
+    }
+    // zajecia 5 koniec
 
     public void update(Auto auto){
         Long id = auto.getId();

@@ -5,6 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.util.Objects;
+
 @Entity
 public class Auto {
     @Id
@@ -66,5 +68,17 @@ public class Auto {
         this.identyfikator = a;
 
 
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Auto auto = (Auto) o;
+        return rokProdukcji == auto.rokProdukcji && Objects.equals(model, auto.model);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(model, rokProdukcji);
     }
 }

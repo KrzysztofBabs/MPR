@@ -22,7 +22,6 @@ public class MyRestController {
         this.autoService= autoService;
     }
 
-
     // wyswietlenie aut z repozytorium
     @GetMapping("/auta/zRepo")
     public List<Auto> WyswietlAuta(){
@@ -69,6 +68,32 @@ public class MyRestController {
     public void aktualizujAuto(@RequestBody Auto auto){
         autoService.update(auto);
     }
+
+
+
+    //zajecia5
+
+    //zamiana na duze litery
+    @PostMapping("/auto/dodajj")
+    public void dodajAutoDuzeLitery(@RequestBody Auto auto){
+        autoService.addupper(auto);
+    }
+
+
+    //zamiana na male litery
+    @PostMapping("/auto/dodajjj")
+    public void dodajAutoMaleLitery(@RequestBody Auto auto){
+        autoService.addlower(auto);
+    }
+
+    //pierwsza duza reszta male
+    @GetMapping("/auta/zRepoo")
+    public List<Auto> WyswietlAutaa(){
+        return autoService.getFirstLetterBiggerRestLower();
+    }
+
+
+
 
 
 
