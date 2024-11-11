@@ -55,9 +55,9 @@ public class Auto {
         return identyfikator;
     }
 
-    public void setIdentyfikator() {
-        char[] tablica1 = this.model.toCharArray();
-        char[] tablica2 = ("" + this.rokProdukcji).toCharArray();
+    public void setIdentyfikator(){
+        char[] tablica1=this.model.toCharArray();
+        char[] tablica2=("" + this.rokProdukcji).toCharArray();
         int a=0;
         for(char x : tablica1){
             a+=(int) x;

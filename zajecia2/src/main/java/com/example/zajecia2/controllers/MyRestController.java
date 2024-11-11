@@ -29,11 +29,13 @@ public class MyRestController {
     }
 
 
+
+
     // wyszukanie auta po ID z repozytorium
-    @GetMapping("/auto/id/{id}")
-    public Optional<Auto> GetById(@PathVariable Long id){
-        return autoService.getById(id);
-    }
+//    @GetMapping("/auto/id/{id}")
+//    public Optional<Auto> GetById(@PathVariable Long id){
+//        return autoService.getById(id);
+//    }
 
 
     // wyszukanie auta po modelu z repozytorium
@@ -58,10 +60,10 @@ public class MyRestController {
 
 
     // dodanie auta do repozytorium
-    @PostMapping("/auto/dodaj")
-    public void dodajAuto(@RequestBody Auto auto){
-        autoService.add(auto);
-    }
+//    @PostMapping("/auto/dodaj")
+//    public void dodajAuto(@RequestBody Auto auto){
+//        autoService.add(auto);
+//    }
 
     // aktualizacja auto z repozytorium po ID
     @PatchMapping("/auto/update")
@@ -92,6 +94,47 @@ public class MyRestController {
         return autoService.getFirstLetterBiggerRestLower();
     }
 
+
+
+
+    // zajecia6
+
+    @GetMapping("auta/all")
+    public ResponseEntity<List<Auto>> wyswietlAuta(){
+        return new ResponseEntity<>(autoService.getAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/autoo/id/{id}")
+    public ResponseEntity<Optional<Auto>> GetById(@PathVariable Long id){
+        return new ResponseEntity<>(autoService.getById(id),HttpStatus.OK);
+    }
+
+
+    @PostMapping("/autoo/dodaj")
+    public ResponseEntity<Auto> dodajAuto(@RequestBody Auto auto){
+        autoService.add(auto);
+       return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+//    aktualizacja po id. Wszytsko inne sie zmienia
+    @PutMapping("/autko/update")
+    public ResponseEntity<Auto> AktualizujAuto(@RequestBody Auto auto){
+        autoService.Update(auto);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+    }
+
+    @DeleteMapping("/auto/usunn/{model}")
+    public ResponseEntity<Auto> usunAutoo(@PathVariable String model){
+        autoService.DeleteAuto(model);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @PostMapping("/Auto/dodaj")
+    public ResponseEntity<Auto> DDodajAuto(@RequestBody Auto auto){
+        autoService.Add(auto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 
 
 
