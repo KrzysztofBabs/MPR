@@ -16,6 +16,14 @@ public class Auto {
     private int rokProdukcji;
     private int identyfikator;
 
+    public Auto(Long id, String model, int rokProdukcji, int identyfikator) {
+        this.id = id;  // przypisanie id z bazy danych
+        this.model = model;
+        this.rokProdukcji = rokProdukcji;
+        this.identyfikator = identyfikator; // przypisanie identyfikatora
+    }
+
+
 
 
     public Auto(String model, int rokProdukcji) {
@@ -27,7 +35,7 @@ public class Auto {
     public Auto(){};
 
 
-    public String getModel() {
+    public  String getModel() {
         return model;
     }
 
@@ -43,7 +51,7 @@ public class Auto {
         this.rokProdukcji = rokProdukcji;
     }
 
-    public Long getId() {
+    public  Long getId() {
         return id;
     }
 

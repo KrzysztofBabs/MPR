@@ -2,13 +2,21 @@ package com.example.zajecia2.controllers;
 
 import com.example.zajecia2.model.Auto;
 import com.example.zajecia2.services.AutoService;
+import com.example.zajecia2.services.PDFGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+
+
+
+
+import static javax.print.DocFlavor.URL.PDF;
 
 
 @RestController
@@ -135,6 +143,31 @@ public class MyRestController {
         autoService.Add(auto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+//    zajecia7
+
+    @GetMapping("/auto/wyszukaj/poID/{id}/pdf")
+
+    public ResponseEntity<byte[]> getObjectPdf(@PathVariable Long id) {
+        try {
+            Auto auto = autoService.findById(id);
+            byte[] pdfBytes = PDFGenerator.generatePdf(auto);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Disposition", "inline; filename=auto_" + id + ".pdf");
+
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .contentType(org.springframework.http.MediaType.APPLICATION_PDF)
+                    .body(pdfBytes);
+
+        }catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
 
 
 

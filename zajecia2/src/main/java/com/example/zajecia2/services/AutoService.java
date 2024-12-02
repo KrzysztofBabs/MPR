@@ -135,6 +135,7 @@ public class AutoService{
             throw new CantDeleteAuto_NotFoundException();
         }
         this.repository.deleteAll(auto);
+//        this.repository.deleteById();
     }
 
     public void Update(Auto auto){
@@ -170,6 +171,31 @@ public class AutoService{
 
             }
         }
+
+//    zajecia7
+
+    public Auto findById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Object with ID " + id + " not found"));
+    }
+
+//    public Auto findById(Long id) {
+//        Optional<Auto> optionalAuto = repository.findById(id);
+//        if (optionalAuto.isPresent()) {
+//            return optionalAuto.get();
+//        } else {
+//            throw new IllegalArgumentException("Auto with ID " + id + " not found");
+//        }
+//    }
+
+    // zajecia9
+
+    // usuneicie po id w formularzu
+    public void deleteAutoById(Long id){
+        Optional<Auto> auto = this.repository.findById(id);
+        this.repository.delete(auto.get());
+    }
+
 
 
     }

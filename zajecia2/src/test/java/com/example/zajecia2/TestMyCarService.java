@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -83,4 +84,45 @@ public class TestMyCarService {
 
     }
 
-}
+//    zajecia7
+
+
+
+
+
+
+        @Test
+        public void testUpdateAuto_whenAutoExists() {
+
+// zmienic to bo zle jest
+            // Przygotowanie testowanego obiektu
+            Long id = 1L;
+            String newModel = "Renault";
+            int newRokProdukcji = 2025;
+
+            // Tworzymy auto do zaktualizowania (bez ID w konstruktorze, bo jest ono w bazie)
+            Auto autoToUpdate = new Auto(newModel, newRokProdukcji);  // Auto które chcemy zaktualizować
+
+            // Mockowanie repozytorium - auto istnieje w bazie z ID 1
+            Auto existingAuto = new Auto(id, "Dacia", 2022, 664);  // Istniejący obiekt w bazie
+            when(autoRepository.findById(id)).thenReturn(Optional.of(existingAuto));  // Zwracamy istniejący obiekt
+
+            // Wywołanie metody
+            autoService.update(autoToUpdate);  // Metoda update ma zaktualizować dane
+
+            // Weryfikacja, że repozytorium zapisało zaktualizowany obiekt
+            verify(autoRepository).save(any(Auto.class));  // Sprawdzamy, czy save() zostało wywołane
+
+            // Sprawdzamy, czy obiekt został zaktualizowany
+            assertEquals(newModel, existingAuto.getModel(), "Model should be updated to 'Renault'");
+            assertEquals(newRokProdukcji, existingAuto.getRokProdukcji(), "Rok produkcji should be updated to 2025");
+
+            // Opcjonalnie, sprawdzamy, czy identyfikator się nie zmienił
+            assertEquals(664, existingAuto.getIdentyfikator(), "Identyfikator should remain the same");
+        }
+    }
+
+
+
+
+
