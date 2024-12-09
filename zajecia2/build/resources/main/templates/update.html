@@ -10,16 +10,16 @@
       th:object="${Auto}" method="post">
   <table border="1">
     <tr>
-      <td><input type="number" th:field="*{id}"/></td>
+      <td><input id="id" type="number" th:field="*{id}"/></td>
     </tr>
     <tr>
-      <td><input type="text" th:field="*{model}"/></td>
+      <td><input id="model" type="text" th:field="*{model}"/></td>
     </tr>
     <tr>
-      <td><input type="number" th:field="*{rokProdukcji}"/></td>
+      <td><input id="rokP" type="number" th:field="*{rokProdukcji}"/></td>
     </tr>
     <tr>
-      <td><input type="submit" value="Submit"/></td>
+      <td><input id="submit" type="submit" value="Submit"/></td>
     </tr>
   </table>
 </form>
